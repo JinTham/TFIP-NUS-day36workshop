@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { WeatherService } from '../services/weather.service';
+import { CitiesRepository } from '../services/cities.repo';
 
 @Component({
   selector: 'app-listcities',
@@ -8,10 +9,11 @@ import { WeatherService } from '../services/weather.service';
 })
 export class ListcitiesComponent implements OnInit{
   cities:any
-  constructor(private weatherSvc:WeatherService){}
+  constructor(private weatherSvc:WeatherService, private citiesRepo:CitiesRepository){}
 
-  ngOnInit(): void {
-    this.weatherSvc.sortCities()
-    this.cities = this.weatherSvc.countries;
+  async ngOnInit(){
+    //this.weatherSvc.sortCities()
+    //this.cities = this.weatherSvc.countries;
+    this.cities = await this.citiesRepo.getAllCities()
   }
 }
